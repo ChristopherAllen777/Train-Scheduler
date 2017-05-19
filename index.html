@@ -14,15 +14,29 @@
 
     .jumbotron {
       background: #4d78a0;
+
     }
     #h1 {
       color: #F2F2F7;
+      font-size: 35pt;
+      font-family: 'Bebas';
     }
     #h2 {
       color: #9F9FC9;
+      font-family: 'Futura';
     }
     #heading1 {
       background: #4d78a0;
+      font-family: 'Futura';
+    }
+    #decription {
+      text-align: center;
+      font-size: 18pt;
+      color: #2A719F;
+      font-family: 'Futura';
+      padding: 35px 10px 20px 10px;
+      }
+
     }
     #panel-color {
       background: #F2F2F7;
@@ -67,7 +81,7 @@
             <h3 class="panel-title">Current Train Schedule</h3>
           </div>
           <div class="panel-body">
-
+          <p id="decription">Set foot on your next greatest destination. Buy your Pass here and hit the rails!</p>
           <button onclick="window.location.href='https://www.raileurope.com/index.html?gclid=CjwKEAjwjPXIBRDhwICRg-DbgHISJADP6QXpSAxkZq5E7cJBcbjhoDIbZlWgE6FQ5I8s0Wf7iloPXRoCiVfw_wcB'" type="button" class="btn btn-primary btn-md btn-block">Eurail Rail Passes</button>
           <br>
           <div class="embed-responsive embed-responsive-4by3">
@@ -153,6 +167,8 @@
 // Google Firebase Connection for Train Info
 
  // Initialize Firebase
+ // Fire base URL - https://console.firebase.google.com/u/0/project/train-schedule-d03cc/database/data
+
   var config = {
     apiKey: "AIzaSyC-O782zyaJv_IYi6wb0QjLAAqzmvoRWB4",
     authDomain: "train-schedule-d03cc.firebaseapp.com",
