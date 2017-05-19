@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Train Schedule</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+  <style type="text/css">
+
+    .jumbotron {
+      background: #4d78a0;
+    }
+    #h1 {
+      color: #F2F2F7;
+    }
+    #h2 {
+      color: #9F9FC9;
+    }
+    #heading1 {
+      background: #4d78a0;
+    }
+    #panel-color {
+      background: #F2F2F7;
+    }
+    .panelpanel-default {
+      color: #4d78a0;
+    }
+    .panel-title {
+      color: white;
+    }
+    #add-user {
+      background: #4d78a0;
+      color: white;
+    }
+    body {
+      background: #B7B7B7;
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <br>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+      <h1 id="h1" class="text-center">ANYTIME IS TRAIN TIME</h1>
+      <h2 id="h2" class="text-center"> Choo Choo. Chee Chee.</h2>
+    </div>
+    <div class="row">
+
+      <!-- Sign-Up Panel-->
+      <div class="col-lg-6">
+        <div id="panel-color" class="panel panel-default">
+          <div id="heading1" class="panel-heading">
+            <h3 class="panel-title">Current Train Schedule</h3>
+          </div>
+          <div class="panel-body">
+
+            <!-- Sign-up Form (note the various input "types")-->
+            <form role="form">
+              
+    <!-- This is where the code goes for my train Info -->
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6">
+        <div id="panel-color" class="panel panel-default">
+          <div id="heading1" class="panel-heading">
+            <h3 class="panel-title">Add Train</h3>
+          </div>
+          <div class="panel-body">
+
+            <!-- Sign-up Form (note the various input "types")-->
+            <form role="form">
+              <div class="form-group">
+                <label for="name-input">Train Name</label>
+                <input class="form-control" id="trainName-input" type="text">
+              </div>
+              <div class="form-group">
+                <label for="destination-input">Destination</label>
+                <input class="form-control" id="destination-input" type="text">
+              </div>
+              <div class="form-group">
+                <label for="trainTime-input">First Train Time (HH:mm - military time)</label>
+                <input class="form-control" id="trainTime-input" type="text">
+              </div>
+              <div class="form-group">
+                <label for="frequency-input">Frequency (min)</label>
+                <input class="form-control" id="frequency-input" type="text">
+              </div>
+              <button class="btn btn-default" id="add-user" type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Answers</h3>
+          </div>
+          <div class="panel-body" id="recent-member">
+            <h2 id="name-display">#1 Color</h2>
+            <h4 id="destination-display">#2 Fav Movie</h4>
+            <h4 id="time-display"> Number 1 - 10</h4>
+            <p id="frequency-display">Phrase</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+  <!-- LINK TO FIREBASE GOES HERE -->
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script type="text/javascript"></script>
+  <!-- Script -->
+  <script>
+   
+
+   //  START CODING BELOW!!
+
+   // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC-O782zyaJv_IYi6wb0QjLAAqzmvoRWB4",
+    authDomain: "train-schedule-d03cc.firebaseapp.com",
+    databaseURL: "https://train-schedule-d03cc.firebaseio.com",
+    projectId: "train-schedule-d03cc",
+    storageBucket: "train-schedule-d03cc.appspot.com",
+    messagingSenderId: "818207217404"
+  };
+  firebase.initializeApp(config);
+
+    // Create a variable to reference the database
+    var database = firebase.database();
+
+
+    // Capture Button Click
+    $("#add-user").on("click", function() {
+      // Don't refresh the page!
+      event.preventDefault();
+
+      var name = $("#name-input").val().trim();
+      var destination = $("#destination-input").val().trim();
+      var time = $("#trainTime-input").val().trim();
+      var frequency = $("#frequency-input").val().trim();
+
+      console.log(name);
+      console.log(destination);
+      console.log(time);
+      console.log(frequency);
+
+
+      database.ref().set({
+      name: name,
+      destination: destination,
+      time: time,
+      frequency: frequency
+  });
+
+    });
+
+      database.ref().on('value',function(a){
+     $("#name-display").html(a.val().name);
+     $("#destination-display").html(a.val().destination);
+     $("#time-display").html(a.val().time);
+     $("#frequency-display").html(a.val().frequency);
+
+   });
+
+
+
+
+
+ </script>
+   
+</body>
+
+</html>
