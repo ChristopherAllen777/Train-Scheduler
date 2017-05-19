@@ -33,7 +33,7 @@
     .panel-title {
       color: white;
     }
-    #add-user {
+    #submit {
       background: #4d78a0;
       color: white;
     }
@@ -89,7 +89,7 @@
             <form role="form">
               <div class="form-group">
                 <label for="name-input">Train Name</label>
-                <input class="form-control" id="trainName-input" type="text">
+                <input class="form-control" id="name-input" type="text">
               </div>
               <div class="form-group">
                 <label for="destination-input">Destination</label>
@@ -103,7 +103,7 @@
                 <label for="frequency-input">Frequency (min)</label>
                 <input class="form-control" id="frequency-input" type="text">
               </div>
-              <button class="btn btn-default" id="add-user" type="submit">Submit</button>
+              <button class="btn btn-default" id="submit" type="submit">Submit</button>
             </form>
           </div>
         </div>
@@ -112,14 +112,17 @@
 
       <div class="col-lg-6">
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Answers</h3>
+          <div id="heading1" class="panel-heading">
+            <h3 class="panel-title">Requested Train Info</h3>
           </div>
           <div class="panel-body" id="recent-member">
-            <h2 id="name-display">Train Name</h2>
-            <h2 id="destination-display">Destination</h2>
-            <h2 id="timeTime-display"> First Train Time</h2>
-            <h2 id="frequency-display">Frequency</h2>
+            <p> id="name-display">Train Name</p>
+            <hr>
+            <p id="destination-display">Destination</p>
+             <hr>
+            <p id="trainTime-display"> First Train Time</p>
+             <hr>
+            <p id="frequency-display">Frequency</p>
           </div>
         </div>
       </div>
@@ -136,11 +139,10 @@
   <script type="text/javascript"></script>
   <!-- Script -->
   <script>
-   
 
-   //  START CODING BELOW!!
+// Google Firebase Connection for Train Info
 
-   // Initialize Firebase
+ // Initialize Firebase
   var config = {
     apiKey: "AIzaSyC-O782zyaJv_IYi6wb0QjLAAqzmvoRWB4",
     authDomain: "train-schedule-d03cc.firebaseapp.com",
@@ -150,13 +152,13 @@
     messagingSenderId: "818207217404"
   };
   firebase.initializeApp(config);
-
     // Create a variable to reference the database
     var database = firebase.database();
 
 
-    // Capture Button Click
-    $("#add-user").on("click", function() {
+    // Capture submission info
+
+    $("#submit").on("click", function() {
       // Don't refresh the page!
       event.preventDefault();
 
@@ -165,35 +167,35 @@
       var time = $("#trainTime-input").val().trim();
       var frequency = $("#frequency-input").val().trim();
 
+      // Log our inputs to see if the app is working
+
       console.log(name);
       console.log(destination);
       console.log(time);
       console.log(frequency);
 
+      //Diplays the input information on Firebase
 
       database.ref().set({
-      name: name,
-      destination: destination,
+
+      frequency: frequency,
       time: time,
-      frequency: frequency
+      destination: destination,
+      name: name
   });
 
-    });
+});
+
+    // Fetch our data from Firebase and display as html on app.
 
       database.ref().on('value',function(a){
-     $("#name-display").html(a.val().name);
-     $("#destination-display").html(a.val().destination);
-     $("#time-display").html(a.val().time);
-     $("#frequency-display").html(a.val().frequency);
+     $("#name-display").html("Train Name: " + a.val().name);
+     $("#destination-display").html("Destination: " + a.val().destination);
+     $("#trainTime-display").html("Train Time: " + a.val().time);
+     $("#frequency-display").html("Frequency: " + a.val().frequency);
 
    });
 
-
-
-
-
  </script>
-   
 </body>
-
 </html>
