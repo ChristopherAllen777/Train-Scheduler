@@ -10,6 +10,10 @@
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+  <!-- Moment.js Reference -->
+    <!-- <script src="http://momentjs.com/downloads/moment.js"></script>   -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
 
   <style type="text/css">
 
@@ -182,12 +186,11 @@
 
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery.js"></script>
-
   <!-- LINK TO FIREBASE GOES HERE -->
   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
   <script type="text/javascript"></script>
   <!-- Script -->
-  <script>
+  <script> // This is my Javascript file for Train Scheduler. // 
 
 // Google Firebase Connection for Train Info
 
@@ -224,26 +227,50 @@
 
       // Log our inputs to see if the app is working
 
-      console.log(name);
-      console.log(destination);
-      console.log(time);
-      console.log(frequency);
+      var newTrain = {
+        frequency: frequency,
+        time: time,
+        destination: destination,
+        name: name
+      };
 
-      //Diplays the input information on Firebase
+      // Uploades train data to the database
+      database.ref().push(newTrain);
 
-      database.ref().push({
+      // Logs everything to console
+      console.log(name.name);
+      console.log(destination.destination);
+      console.log(time.time);
+      console.log(frequency.frequency);
 
-      frequency: frequency,
-      time: time,
-      destination: destination,
-      name: name
-  });
-
-});
-
+      // Alert user that their submission was successful
       alert("Train Successfully added");
 
-     
+      // Clears all of the text-boxes
+      $("#name-input").val("");
+      $("#destination-input").val("");
+      $("#trainTime-input").val("");
+      $("#frequency-input").val("");
+});
+
+// 3. Create Firebase event for adding train to the database and a row in the html when a user adds an entry
+database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+  console.log(childSnapshot.val());
+
+  // Store everything into a varible.
+  var frequency = childSnapshot.val().frequency;
+  var time = childSnapshot.val().time;
+  var destination = childSnapshot.val().destination;
+  var frequency = childSnapshot.val().frequency;
+
+  //Train Info
+  console.log(frequency);
+  console.log(time);
+  console.log(destination);
+  console.log(frequency);
+
+  
+});
 
     // Fetch our data from Firebase and display as html on app.
 
