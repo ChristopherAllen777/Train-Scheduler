@@ -95,7 +95,6 @@
             <!-- Sign-up Form (note the various input "types")-->
             <form role="form">
               
-    <!-- This is where the code goes for my train Info -->
 
             </form>
           </div>
@@ -146,13 +145,33 @@
             <h3 class="panel-title">Requested Train Info</h3>
           </div>
           <div class="panel-body" id="recent-member">
-            <p id="name-display">Train Name</p>
-            <hr>
-            <p id="destination-display">Destination</p>
-             <hr>
-            <p id="trainTime-display"> First Train Time</p>
-             <hr>
-            <p id="frequency-display">Frequency</p>
+           <table class="table">
+                <thead>
+                  <tr>
+                    <th>Train Name</th>
+                    <th>Destination</th>
+                    <th>Frequency (min)</th>
+                    <th>Next Arrival</th>
+                    <th>Minutes Away</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Rocky</td>
+                    <td>Shield Morgan from the Rain</td>
+                    <td>02/21/16</td>
+                    <td>14</td>
+                    <td>10</td>
+                  </tr>
+                  <tr>
+                    <td>Osei</td>
+                    <td>Instructor</td>
+                    <td>01/01/20</td>
+                    <td>-31</td>
+                    <td>1</td>
+                  </tr>
+                </tbody>
+              </table>
           </div>
         </div>
       </div>
@@ -190,7 +209,9 @@
 
     // Capture submission info
 
-    $("#")
+    $("#clock").on("click", function(displayTime){
+      console.log()
+    });
 
     $("#submit").on("click", function() {
       // Don't refresh the page!
@@ -210,7 +231,7 @@
 
       //Diplays the input information on Firebase
 
-      database.ref().set({
+      database.ref().push({
 
       frequency: frequency,
       time: time,
@@ -219,6 +240,10 @@
   });
 
 });
+
+      alert("Train Successfully added");
+
+     
 
     // Fetch our data from Firebase and display as html on app.
 
